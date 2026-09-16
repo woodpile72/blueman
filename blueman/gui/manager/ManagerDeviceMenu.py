@@ -4,6 +4,7 @@ from gettext import gettext as _
 from operator import attrgetter
 from typing import TYPE_CHECKING
 from collections.abc import Iterable
+
 from blueman.bluemantyping import BtAddress
 
 from blueman.bluemantyping import ObjectPath
@@ -336,7 +337,7 @@ class ManagerDeviceMenu(Gtk.Menu):
         config = AutoConnectConfig()
         generic_service = ServiceUUID("00000000-0000-0000-0000-000000000000")
         object_path = self.SelectedDevice.get_object_path()
-        btaddress: BtAddress = self.SelectedDevice["Address"]
+        btaddress = BtAddress(self.SelectedDevice["Address"])
         generic_autoconnect = (object_path, str(generic_service)) in set(config["services"])
 
         if row["connected"] or generic_autoconnect or autoconnect_items:
